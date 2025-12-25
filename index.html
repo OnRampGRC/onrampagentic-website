@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealCoach AI | Turn RFP Hell into Revenue</title>
+    <meta name="description" content="AI-powered RFP response automation for mid-market sales teams. Transform 40-hour RFPs into 4-hour reviews.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary: #1e3a5f;
+            --primary-dark: #0f2744;
+            --accent: #2563eb;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e5e7eb;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Navigation - matching OnRamp GRC */
+        .navbar {
+            padding: 1.25rem 2rem;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .navbar-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: var(--bg);
+        }
+        
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero h1 strong {
+            color: var(--accent);
+        }
+        
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .hero-description strong {
+            font-weight: 600;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        
+        .btn:hover {
+            background: #1d4ed8;
+            text-decoration: none;
+        }
+        
+        /* Info Cards Row - matching OnRamp GRC style */
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+        }
+        
+        .info-card {
+            background: var(--bg-alt);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .info-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card h3 a {
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .info-card h3 a:hover {
+            color: var(--accent);
+        }
+        
+        .info-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* Problem/Fix Section */
+        .problem-fix {
+            padding: 4rem 2rem;
+            background: var(--bg);
+        }
+        
+        .problem-fix-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .problem-box, .fix-box {
+            padding: 0;
+        }
+        
+        .problem-box h3, .fix-box h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .problem-box p, .fix-box p {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        /* Three Column Features */
+        .features {
+            padding: 4rem 2rem;
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .features-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+        
+        .feature {
+            padding: 0;
+        }
+        
+        .feature h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 2rem;
+            background: var(--bg);
+        }
+        
+        .how-it-works-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .how-it-works h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .step {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+        
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.35rem;
+        }
+        
+        .step-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* ROI Section */
+        .roi {
+            padding: 4rem 2rem;
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+        }
+        
+        .roi-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .roi h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .roi-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .roi-stat {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .roi-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+        
+        .roi-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 4rem 2rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+        
+        .pricing-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .pricing-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .pricing-card {
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .pricing-card.featured {
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .pricing-tier {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .pricing-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-features li {
+            font-size: 0.9rem;
+            color: var(--text);
+            padding: 0.4rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        
+        .pricing-features li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 0.85rem 1rem;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .pricing-card.featured .pricing-btn {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .pricing-card.featured .pricing-btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .pricing-card:not(.featured) .pricing-btn {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .pricing-card:not(.featured) .pricing-btn:hover {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 4rem 2rem;
+            background: var(--primary-dark);
+            text-align: center;
+        }
+        
+        .cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .cta .btn {
+            background: white;
+            color: var(--primary-dark);
+        }
+        
+        .cta .btn:hover {
+            background: var(--bg-alt);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 2rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand img {
+            height: 28px;
+            width: auto;
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .footer-text a {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .problem-fix-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .features-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .roi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .roi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="https://onrampgrc.com" class="logo">
+                <img src="https://onrampgrc.com/OnRampGRCLogo.png" alt="OnRamp GRC Logo">
+                <span class="logo-text">DealCoach AI</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="https://onrampgrc.com">OnRamp GRC</a></li>
+                <li><a href="https://calendly.com/tim-onrampgrc/dealcoach-demo">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>Stop Losing Deals to RFP Hell.<strong>Start Winning.</strong></h1>
+            <p class="hero-description">
+                <strong>DealCoach AI:</strong> An intelligent RFP response platform that transforms 40-hour proposals into 4-hour reviews. Your sales team focuses on strategy while AI handles the grunt work.
+            </p>
+            <a href="https://calendly.com/tim-onrampgrc/dealcoach-demo" class="btn">Book 20-Minute Demo</a>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-card">
+                <h3><a href="#how-it-works">How DealCoach Works</a></h3>
+                <p>Upload any RFP. AI extracts questions, retrieves answers from your knowledge base, and generates draft responses with citations.</p>
+            </div>
+            <div class="info-card">
+                <h3><a href="#pricing">Built for Mid-Market</a></h3>
+                <p>Enterprise-grade RFP automation without enterprise pricing. Unlimited users, transparent costs, rapid time-to-value.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Fix Section -->
+    <section class="problem-fix" id="problem">
+        <div class="problem-fix-inner">
+            <div class="problem-box">
+                <h3>The Problem:</h3>
+                <p>Your proposal team spends 31 hours on every RFP, chasing SMEs for answers and reformatting the same content over and over. Meanwhile, 20% of RFPs get abandoned because there's no time, and win rates hover at 45%.</p>
+            </div>
+            <div class="fix-box">
+                <h3>The DealCoach Fix:</h3>
+                <p>AI reads the RFP, pulls best-fit answers from your knowledge base, and drafts complete responses with citations. High-confidence answers auto-approve. Your team only reviews edge cases and gaps.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-inner">
+            <div class="feature">
+                <h3>Intelligent extraction</h3>
+                <p>Upload PDF, DOCX, or Excel RFPs. AI extracts every question, categorizes by type (Security, Technical, Pricing), and identifies response requirements automatically.</p>
+            </div>
+            <div class="feature">
+                <h3>Knowledge retrieval</h3>
+                <p>DealCoach searches your past proposals, security documentation, and product specs to find the best answers. Every response includes source citations for verification.</p>
+            </div>
+            <div class="feature">
+                <h3>Gap detection</h3>
+                <p>When information is missing—a pen test report, pricing approval, technical spec—DealCoach identifies the gap and routes to the appropriate SME for resolution.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="how-it-works-inner">
+            <h2>From RFP to Proposal in Hours</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Upload the RFP</h4>
+                        <p>Drag and drop any RFP document. DealCoach extracts all questions in seconds, categorizing by type and complexity.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>AI generates responses</h4>
+                        <p>The system searches your knowledge base and drafts complete responses. High-confidence answers (89% on average) auto-approve; edge cases flag for review.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Review and refine</h4>
+                        <p>Your team focuses only on the 10-15% that needs attention. Approve with one click, edit where needed, route gaps to SMEs.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Export and submit</h4>
+                        <p>Generate a polished Word or PDF proposal with your branding, professional formatting, and organized attachments. Ready to submit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section class="roi">
+        <div class="roi-inner">
+            <h2>The Math Works</h2>
+            <p class="roi-subtitle">DealCoach pays for itself within the first month.</p>
+            
+            <div class="roi-grid">
+                <div class="roi-stat">
+                    <div class="roi-stat-number">90%</div>
+                    <div class="roi-stat-label">Time reduction</div>
+                </div>
+                <div class="roi-stat">
+                    <div class="roi-stat-number">13x</div>
+                    <div class="roi-stat-label">Monthly ROI</div>
+                </div>
+                <div class="roi-stat">
+                    <div class="roi-stat-number">89%</div>
+                    <div class="roi-stat-label">Auto-approved</div>
+                </div>
+                <div class="roi-stat">
+                    <div class="roi-stat-number">5x</div>
+                    <div class="roi-stat-label">More proposals</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-inner">
+            <h2>Simple Pricing</h2>
+            <p class="pricing-subtitle">No per-seat fees. No hidden costs. Unlimited users on every plan.</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Starter</div>
+                    <div class="pricing-price">$499<span>/mo</span></div>
+                    <p class="pricing-description">For teams getting started with RFP automation</p>
+                    <ul class="pricing-features">
+                        <li>10 RFPs per month</li>
+                        <li>Standard response generation</li>
+                        <li>DOCX export</li>
+                        <li>5 users included</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="https://calendly.com/tim-onrampgrc/dealcoach-demo" class="pricing-btn">Start Trial</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">Most Popular</span>
+                    <div class="pricing-tier">Professional</div>
+                    <div class="pricing-price">$1,499<span>/mo</span></div>
+                    <p class="pricing-description">For sales teams that need to win</p>
+                    <ul class="pricing-features">
+                        <li>50 RFPs per month</li>
+                        <li>Agentic mode (analyst-critic loop)</li>
+                        <li>Professional export with branding</li>
+                        <li>Unlimited users</li>
+                        <li>Gap analysis and SME routing</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="https://calendly.com/tim-onrampgrc/dealcoach-demo" class="pricing-btn">Book Demo</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">Custom</div>
+                    <p class="pricing-description">For organizations with advanced needs</p>
+                    <ul class="pricing-features">
+                        <li>Unlimited RFPs</li>
+                        <li>CRM integrations</li>
+                        <li>SSO / SAML</li>
+                        <li>Dedicated success manager</li>
+                        <li>SLA guarantees</li>
+                        <li>On-premise option</li>
+                    </ul>
+                    <a href="https://calendly.com/tim-onrampgrc/dealcoach-demo" class="pricing-btn">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-inner">
+            <h2>Ready to Win More Deals?</h2>
+            <p>Book a 20-minute demo. We'll respond to one of your actual RFP questions live so you can see exactly how DealCoach works.</p>
+            <a href="https://calendly.com/tim-onrampgrc/dealcoach-demo" class="btn">Book Your Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="https://onrampgrc.com/OnRampGRCLogo.png" alt="OnRamp GRC">
+            </div>
+            <p class="footer-text">
+                DealCoach AI is a product of <a href="https://onrampgrc.com">OnRamp GRC</a>
+            </p>
+            <p class="footer-copyright">© 2025 OnRamp GRC. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
